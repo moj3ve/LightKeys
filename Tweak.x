@@ -16,7 +16,7 @@ static void notificationCallback(CFNotificationCenterRef center, void *observer,
     enabled = (n) ? [n boolValue]:YES;
 }
 
-%group LKXIII
+%group LK
     %hook UIKeyboard
         -(void)layoutSubviews {
             %orig;
@@ -45,6 +45,6 @@ static void notificationCallback(CFNotificationCenterRef center, void *observer,
     CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, notificationCallback, (CFStringRef)nsNotificationString,NULL,CFNotificationSuspensionBehaviorCoalesce);
     
     if(enabled) {
-        %init(LKXIII);
+        %init(LK);
     }
 }
