@@ -8,21 +8,13 @@
 -(void)setObject:(id)value forKey:(NSString *)key inDomain:(NSString *)domain;
 @end
 
-static NSString *nsNotificationString = @"com.patrick.darkkeys/preferences.changed";
+static NSString *nsNotificationString = @"com.patrick.lightkeys/preferences.changed";
 static BOOL enabled;
 
 static void notificationCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-    NSNumber *n = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"enable" inDomain:@"com.patrick.darkkeys"];
+    NSNumber *n = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"enable" inDomain:@"com.patrick.lightkeys"];
     enabled = (n) ? [n boolValue]:YES;
 }
-
-/*
-static void loadPrefs() {
-    NSMutableDictionary *settings = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/var/mobile/Library/Preferences/com.patrick.darkkeys.plist"];
-    
-    enabled = [settings objectForKey:@"ENABLED"] ? [[settings objectForKey:@"ENABLED"] boolValue] : NO;
-}
- */
 
 %group LKXIII
     %hook UIKeyboard
