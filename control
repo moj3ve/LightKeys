@@ -3,7 +3,7 @@ Name: Light Keys
 Depends: 
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
+Description: Your keyboard, but lighter.
 Maintainer: Patrick
 Author: Patrick
 Section: Tweaks
