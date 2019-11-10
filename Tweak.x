@@ -1,34 +1,58 @@
-/* How to Hook with Logos
-Hooks are written with syntax similar to that of an Objective-C @implementation.
-You don't need to #include <substrate.h>, it will be done automatically, as will
-the generation of a class list and an automatic constructor.
+@interface UIKeyboard : UIView
+@end
+@interface UIKeyboardDockView : UIView
+@end
+    
+@interface NSUserDefaults (Tweak_Category)
+-(id)objectForKey:(NSString *)key inDomain:(NSString *)domain;
+-(void)setObject:(id)value forKey:(NSString *)key inDomain:(NSString *)domain;
+@end
 
-%hook ClassName
+static NSString *nsNotificationString = @"com.patrick.darkkeys/preferences.changed";
+static BOOL enabled;
 
-// Hooking a class method
-+ (id)sharedInstance {
-	return %orig;
+static void notificationCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+    NSNumber *n = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"enable" inDomain:@"com.patrick.darkkeys"];
+    enabled = (n) ? [n boolValue]:YES;
 }
 
-// Hooking an instance method with an argument.
-- (void)messageName:(int)argument {
-	%log; // Write a message about this call, including its class, name and arguments, to the system log.
-
-	%orig; // Call through to the original function with its original arguments.
-	%orig(nil); // Call through to the original function with a custom argument.
-
-	// If you use %orig(), you MUST supply all arguments (except for self and _cmd, the automatically generated ones.)
+/*
+static void loadPrefs() {
+    NSMutableDictionary *settings = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/var/mobile/Library/Preferences/com.patrick.darkkeys.plist"];
+    
+    enabled = [settings objectForKey:@"ENABLED"] ? [[settings objectForKey:@"ENABLED"] boolValue] : NO;
 }
+ */
 
-// Hooking an instance method with no arguments.
-- (id)noArguments {
-	%log;
-	id awesome = %orig;
-	[awesome doSomethingElse];
+%group LKXIII
+    %hook UIKeyboard
+        -(void)layoutSubviews {
+            %orig;
+            self.backgroundColor = [UIColor whiteColor];
+        }
+    %end
 
-	return awesome;
-}
+    %hook UIKBRenderConfig
+        -(void)setLightKeyboard:(BOOL)arg1 {
+            %orig(YES);
+        }
+    %end
 
-// Always make sure you clean up after yourself; Not doing so could have grave consequences!
+    %hook UIKeyboardDockView
+        -(void)layoutSubviews {
+            %orig;
+            self.backgroundColor = [UIColor whiteColor];
+        }
+    %end
 %end
-*/
+
+%ctor
+{
+    notificationCallback(NULL,NULL,NULL,NULL,NULL);
+    
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, notificationCallback, (CFStringRef)nsNotificationString,NULL,CFNotificationSuspensionBehaviorCoalesce);
+    
+    if(enabled) {
+        %init(LKXIII);
+    }
+}

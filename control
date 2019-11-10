@@ -1,6 +1,6 @@
 Package: com.patrick.lightkeys
 Name: Light Keys
-Depends: mobilesubstrate, preferenceloader, ws.hbang.common (>= 1.11)
+Depends: 
 Version: 0.0.1
 Architecture: iphoneos-arm
 Description: An awesome MobileSubstrate tweak!
