@@ -1,9 +1,10 @@
 Package: com.patrick.lightkeys
 Name: Light Keys
-Depends: 
-Version: 0.0.1
+Depends: preferenceloader, ws.hbang.common (>= 1.11)
+Version: 1.0
 Architecture: iphoneos-arm
-Description: Your keyboard, but lighter.
+Description: A simple tweak to use the built in light appearance for the stock iOS keyboard across the operating system.
 Maintainer: Patrick
 Author: Patrick
 Section: Tweaks
+Conflicts: com.gnos.bloard, com.patrick.darkkeysxii
