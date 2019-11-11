@@ -15,7 +15,7 @@
 		<key>isController</key>
 		<true/>
 		<key>label</key>
-		<string>lightkeysprefs</string>
+		<string>Light Keys</string>
 	</dict>
 </dict>
 </plist>
