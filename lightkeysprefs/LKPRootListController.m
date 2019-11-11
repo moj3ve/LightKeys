@@ -5,10 +5,13 @@
 
 - (instancetype)init {
     self = [super init];
+
     if(self) {
         self.respringButton = [[UIBarButtonItem alloc] initWithTitle:@"Respring" style:UIBarButtonItemStylePlain target:self action:@selector(respring:)];
 	}
+
 	return self;
+    
 }
 
 - (NSArray *)specifiers {
