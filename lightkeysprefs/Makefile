@@ -1,12 +1,11 @@
+export ARCHS = arm64 arm64e
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = lightkeysprefs
-
 lightkeysprefs_FILES = LKPRootListController.m
 lightkeysprefs_INSTALL_PATH = /Library/PreferenceBundles
 lightkeysprefs_FRAMEWORKS = UIKit
 lightkeysprefs_PRIVATE_FRAMEWORKS = Preferences
-lightkeysprefs_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 
