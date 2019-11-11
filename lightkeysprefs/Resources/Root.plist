@@ -67,6 +67,13 @@
 		</dict>
 
 		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Respring</string>
+		</dict>
+
+		<dict>
 			<key>action</key>
 			<string>respring:</string>
 			<key>cell</key>
